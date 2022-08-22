@@ -15,8 +15,24 @@
           <li class="nav-item">
             <a class="nav-link">Messages</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">Logout</a>
+          </li>
         </ul>
-        <form class="d-flex" role="search" #loginForm ="ngForm" (ngSubmit)="login()">
+
+        <div class="dropdown" *ngIf="loggedIn()">
+          <a class="btn btn-secondary dropdown-toggle text-light">
+            Welcome User
+          </a>        
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edit profile</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item" href="#"> <i class="fa fa-sign-out"></i> Logout</a></li>
+            
+          </ul>
+        </div>
+
+        <form class="d-flex" role="search" #loginForm ="ngForm" (ngSubmit)="login()" *ngIf="!loggedIn()">
           <input class="form-control me-2" type="text" required name="username" placeholder="username" aria-label="Search" [(ngModel)]="model.username" >
           <input class="form-control me-2" type="password" placeholder="password" aria-label="Search" required name="password" [(ngModel)]="model.password">
           <button class="btn btn-outline-success" [disabled]="!loginForm.valid" type="submit">login</button>
