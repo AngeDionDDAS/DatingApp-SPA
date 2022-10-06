@@ -10,29 +10,37 @@ export class ErrorInterceptor implements HttpInterceptor{
 
         return next.handle(req).pipe(
 
-           /* catchError( function (error) {
-                    if (error instanceof HttpErrorResponse) {
-
-                        const applicationError = error.headers.get('Application-Error');
-
-                        if (applicationError) {
-                            console.error(applicationError);
-                            return throwError(applicationError);
-                        }
+           catchError( (error) => {
 
 
-                        const serverError = error.error;
-                        let modalStateErrors = '';
-                        if (serverError && typeof serverError === 'object') {
-                            for (const key in serverError) {
-                                if (serverError[key]) {
-                                    modalStateErrors += serverError[key] + '\n';
-                                }
-                            }
-                        }
-                        return throwError(modalStateErrors || serverError || 'Server Error');
-                    }
-                })*/
+               if (error instanceof HttpErrorResponse) {
+
+               /* if(error.status === 401){
+                    throw(error.statusText)
+                }*/
+
+                   const applicationError = error.headers.get('Application-Error');
+                   if (applicationError) {
+                       console.error(applicationError);
+                        throw(applicationError);
+                   }
+
+
+                   const serverError = error.error;
+                   let modalStateErrors = '';
+                   if (serverError && typeof serverError === 'object') {
+                       for (const key in serverError) {
+                           if (serverError[key]) {
+                               modalStateErrors += serverError[key] + '\n';
+                           }
+                       }
+                   }
+                    throw(modalStateErrors || serverError || 'Server Error');
+
+               }
+
+                throw('error' + error);
+           })
         );
     }
 
