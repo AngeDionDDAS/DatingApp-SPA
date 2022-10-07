@@ -22,7 +22,7 @@
 
         <div class="dropdown" *ngIf="loggedIn()">
           <a class="btn btn-secondary dropdown-toggle text-light">
-            Welcome User
+            Welcome {{authService.decodedToken?.name}
           </a>        
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edit profile</a></li>
