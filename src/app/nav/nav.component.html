@@ -1,33 +1,31 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Dating App</a>
+      <a class="navbar-brand" [routerLink]="['/home']">Dating App</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Matches</a>
+        <ul *ngIf="loggedIn()" class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/members']">Matches</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Lists</a>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/lists']">Lists</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link">Messages</a>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/messages']">Messages</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" (click)="logout()">Logout</a>
-          </li>
+          
         </ul>
 
-        <div class="dropdown" *ngIf="loggedIn()">
-          <a class="btn btn-secondary dropdown-toggle text-light">
-            Welcome {{authService.decodedToken?.name}
+        <div dropdown class="dropdown" *ngIf="loggedIn()">
+          <a dropdownToggle class="btn btn-secondary dropdown-toggle text-light">
+            Welcome {{authService.decodedToken?.name | titlecase}}
           </a>        
-          <ul class="dropdown-menu">
+          <ul *dropdownMenu class="dropdown-menu mt-3">
             <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edit profile</a></li>
             <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" href="#"> <i class="fa fa-sign-out"></i> Logout</a></li>
+            <li><a class="dropdown-item"(click)="logout()"> <i class="fa fa-sign-out"></i> Logout</a></li>
             
           </ul>
         </div>
